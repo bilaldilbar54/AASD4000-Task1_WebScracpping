@@ -6,6 +6,7 @@ import requests
 import re
 # Code here - Import BeautifulSoup librarys
 from bs4 import BeautifulSoup
+from cleantext import clean
 
 # Code ends here
 
@@ -42,10 +43,11 @@ def clean(text):
 
 def collect_text(soup):
 	text = f'url: {url}\n\n'
-	para_text = soup.find_all('p')
-	print(f"paragraphs text = \n {para_text}")
-	for para in para_text:
-		text += f"{para.text}\n\n"
+	para = soup.find('p', id = '30d4')
+	if para:
+		para_text = para.get_text().strip()
+		print(f"paragraphs text = \n {para_text}")
+		text += para_text
 	return text
 
 # function to save file in the current directory
